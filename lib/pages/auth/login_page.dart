@@ -1,3 +1,4 @@
+import 'package:app_library/pages/auth/register_page.dart';
 import 'package:app_library/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -133,11 +134,19 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.01,
                   ),
-                  Text(
-                    'SIGN UP',
-                    style: TextStyle(
-                      color: themeOranges,
-                      fontWeight: FontWeight.w900,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return RegisterPage();
+                      }));
+                    },
+                    child: Text(
+                      'SIGN UP',
+                      style: TextStyle(
+                        color: themeOranges,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   )
                 ],
