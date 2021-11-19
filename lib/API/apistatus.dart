@@ -1,3 +1,4 @@
+import 'package:app_library/theme/style.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dio/dio.dart';
@@ -54,7 +55,7 @@ class APIStatus {
         kategori: object['Kategori'],
         createdby: object['CreatedBy']);
   }
-
+  //create user
   static Future<List<APIStatus>> insertUser(BuildContext context, String email,
       String username, String phone, String password) async {
     String apiURL = "http://training-api.agungjustika.com/Lukman/insertUser";
@@ -94,4 +95,44 @@ class APIStatus {
       return null;
     }
   }
+  //end create user
+
+  //login
+  static Future<List<APIStatus>> login(
+      BuildContext context, String username, String password) async {
+    String apiURL = "http://training-api.agungjustika.com/Lukman/Login/" +
+        username +
+        "/" +
+        password;
+
+    BaseOptions options = BaseOptions(
+      baseUrl: apiURL,
+      connectTimeout: 60000,
+      receiveTimeout: 30000,
+    );
+
+    Dio dio = Dio(options);
+
+    Response response = await dio.get(apiURL);
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic listData = response.data;
+
+        List<APIStatus> data = [];
+        for (int i = 0; i < listData.length; i++) {
+          data.add(APIStatus.result(listData[i]));
+        }
+        return data;
+      } else {
+        MessageToash(context, "Koneksi Bermasalah");
+        return null;
+      }
+    } catch (e) {
+      MessageToash(context, "Gagal Mengurai Data");
+      return null;
+    }
+  }
+  // end login
+
 }

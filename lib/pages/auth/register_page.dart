@@ -1,4 +1,5 @@
 import 'package:app_library/API/apistatus.dart';
+import 'package:app_library/pages/auth/login_page.dart';
 import 'package:app_library/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -201,17 +202,17 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (_formKey.currentState.validate()) {
                             APIStatus.insertUser(context, _email.text,
                                     _username.text, _phone.text, _password.text)
-                                .then((value) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(value[0].apimessage)),
-                              );
+                                .then((value) {});
+                            MessageToash(context, "Akun Berhasil dibuat");
+                            Future.delayed(const Duration(seconds: 2), () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return LoginPage();
+                              })).then((_) => _formKey.currentState.reset());
+                              ;
                             });
                           } else {
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
-                            );
+                            MessageToash(context, "Lengkapi Data Anda");
                           }
                           _register.reset();
                         },
