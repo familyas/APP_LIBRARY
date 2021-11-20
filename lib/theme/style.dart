@@ -16,6 +16,30 @@ bgGradient() {
   );
 }
 
+class Dekorasi {
+  InputDecoration dekorasiInput(Icon icon, String string, double radius) {
+    return new InputDecoration(
+      prefixIcon: (icon),
+      labelText: string,
+      labelStyle: TextStyle(color: Colors.black38),
+      prefixStyle: TextStyle(
+        color: Color(0xFF000080),
+        fontWeight: FontWeight.w600,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+        borderSide: BorderSide(
+          color: themeOranges,
+          width: 4,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(radius),
+      ),
+    );
+  }
+}
+
 ToastFuture MessageToash(BuildContext context, String Message) {
   return showToast(
     Message,
