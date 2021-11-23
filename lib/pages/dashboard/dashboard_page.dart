@@ -1,5 +1,6 @@
 import 'package:app_library/pages/auth/login_page.dart';
 import 'package:app_library/pages/book/input_buku.dart';
+import 'package:app_library/pages/book/list_buku.dart';
 import 'package:app_library/theme/style.dart';
 import 'package:flutter/material.dart';
 
@@ -77,7 +78,12 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                       Flexible(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return ListBuku();
+                            }));
+                          },
                           child: Container(
                             padding: const EdgeInsets.all(5),
                             width: MediaQuery.of(context).size.width,
