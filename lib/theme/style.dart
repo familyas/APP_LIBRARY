@@ -40,6 +40,7 @@ class Dekorasi {
   }
 }
 
+// ignore: non_constant_identifier_names
 ToastFuture MessageToash(BuildContext context, String Message) {
   return showToast(
     Message,

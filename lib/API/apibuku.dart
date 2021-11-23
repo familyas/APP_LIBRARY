@@ -86,6 +86,7 @@ class APIBOOK {
     }
   }
 
+  // ignore: missing_return
   static Future<List<APIBOOK>> getAllBuku(BuildContext context) async {
     String ApiURL = "http://training-api.agungjustika.com/Lukman/getAllBuku";
     BaseOptions baseOptions = BaseOptions(

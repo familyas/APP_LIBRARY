@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:select_form_field/select_form_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InputBuku extends StatefulWidget {
   @override
@@ -246,8 +247,10 @@ class _InputBukuState extends State<InputBuku> {
                         fontSize: 20,
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState.validate()) {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
                         APIBOOK.InserBuku(
                           context,
                           _judul.text,
@@ -256,7 +259,7 @@ class _InputBukuState extends State<InputBuku> {
                           _penerbit.text,
                           _jmlbk.text,
                           _kategori.text,
-                          'createdby',
+                          prefs.getString("username"),
                         ).then((value) {
                           MessageToash(context, value[0].apimessage);
                           if (value[0].status == "success") {

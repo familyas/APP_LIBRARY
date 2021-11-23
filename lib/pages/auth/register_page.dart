@@ -209,7 +209,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                   MaterialPageRoute(builder: (context) {
                                 return LoginPage();
                               })).then((_) => _formKey.currentState.reset());
-                              ;
                             });
                           } else {
                             MessageToash(context, "Lengkapi Data Anda");

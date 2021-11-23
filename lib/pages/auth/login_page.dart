@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -125,9 +126,12 @@ class _LoginPageState extends State<LoginPage> {
                         if (_formKey.currentState.validate()) {
                           APIStatus.login(
                                   context, _username.text, _password.text)
-                              .then((value) {
+                              .then((value) async {
                             MessageToash(context, value[0].apimessage);
                             if (value[0].status == "success") {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString("username", _username.text);
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
                                 return DashboardPage();

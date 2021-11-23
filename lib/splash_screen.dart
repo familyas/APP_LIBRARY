@@ -1,7 +1,9 @@
 import 'package:app_library/pages/auth/login_page.dart';
+import 'package:app_library/pages/dashboard/dashboard_page.dart';
 import 'package:app_library/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -12,11 +14,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return LoginPage();
-      }));
-    });
+    loginStatus();
+  }
+
+  loginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString("username") == null) {
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return LoginPage();
+        }));
+      });
+    } else {
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return DashboardPage();
+        }));
+      });
+    }
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:app_library/pages/book/input_buku.dart';
 import 'package:app_library/pages/book/list_buku.dart';
 import 'package:app_library/theme/style.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -26,9 +27,39 @@ class _DashboardPageState extends State<DashboardPage> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return LoginPage();
-                }));
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text(
+                      "Apkah Anda Yakin Keluar?",
+                      textAlign: TextAlign.center,
+                    ),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Tidak"),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color.fromRGBO(68, 68, 68, 1),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          SharedPreferences preferences =
+                              await SharedPreferences.getInstance();
+                          preferences.clear();
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return LoginPage();
+                          }));
+                        },
+                        child: Text("Ya"),
+                        style: ElevatedButton.styleFrom(primary: themeOranges),
+                      ),
+                    ],
+                  ),
+                );
               },
               icon: Icon(Icons.power_settings_new),
             )

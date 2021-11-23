@@ -41,37 +41,34 @@ class _ListBukuState extends State<ListBuku> {
           ElevatedButton(
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                        title: Text(
-                          "Hapus Data Ini?",
-                          textAlign: TextAlign.center,
-                        ),
-                        actions: [
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text("Tidak")),
-                          ElevatedButton(
-                            onPressed: () {
-                              APIBOOK
-                                  .deleteBuku(context, value[i].id)
-                                  .then((value) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text(value[0].status),
-                                ));
-                                Navigator.pop(context);
-                                getBuku();
-                              });
-                            },
-                            child: Text("Ya"),
-                            style:
-                                ElevatedButton.styleFrom(primary: Colors.red),
-                          ),
-                        ],
-                      ));
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: Text(
+                    "Hapus Data Ini?",
+                    textAlign: TextAlign.center,
+                  ),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Tidak")),
+                    ElevatedButton(
+                      onPressed: () {
+                        APIBOOK.deleteBuku(context, value[i].id).then((value) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(value[0].status),
+                          ));
+                          Navigator.pop(context);
+                          getBuku();
+                        });
+                      },
+                      child: Text("Ya"),
+                      style: ElevatedButton.styleFrom(primary: Colors.red),
+                    ),
+                  ],
+                ),
+              );
             },
             child: Text("Delete"),
             style: ElevatedButton.styleFrom(primary: Colors.red),
